@@ -13,21 +13,9 @@ const reversePositiveInt = positiveInt => {
 };
 
 function reverseInt(n) {
-  let isNegative = n < 0;
-
-  let positiveInt = n;
-
-  if (isNegative) {
-    positiveInt = -1 * positiveInt;
-  }
-
-  let reversedPositiveInt = reversePositiveInt(positiveInt);
-
-  if (isNegative) {
-    return reversedPositiveInt * -1;
-  }
-
-  return reversedPositiveInt;
+  const oneOrNegativeOne = n < 0 ? -1 : 1;
+  const positiveInt = n * oneOrNegativeOne;
+  return reversePositiveInt(positiveInt) * oneOrNegativeOne;
 }
 
 module.exports = reverseInt;
