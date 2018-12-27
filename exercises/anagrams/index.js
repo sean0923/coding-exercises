@@ -21,42 +21,53 @@ const removeSpaceAndPunctuation = str => {
   return outputStr;
 };
 
-const getCharCounter = str => {
-  return str.split('').reduce((acc, char) => {
-    if (acc[char] === undefined) {
-      acc[char] = 1;
-    } else {
-      acc[char] += 1;
-    }
-
-    return acc;
-  }, {});
+const getSortedStr = str => {
+  return str.split('').sort().join('');
 };
 
 function anagrams(stringA, stringB) {
-  // * Consider capital letters to be the same as lower case
-  // change string A, and string B to lower case
-  // remove space and punctuation
-  const shortStrA = removeSpaceAndPunctuation(stringA.toLowerCase());
-  const shortStrB = removeSpaceAndPunctuation(stringB.toLowerCase());
+  const shortStringA = removeSpaceAndPunctuation(stringA.toLowerCase());
+  const shortStringB = removeSpaceAndPunctuation(stringB.toLowerCase());
 
-  // make charCounter A and B
-  const charCounterA = getCharCounter(shortStrA);
-  const charCounterB = getCharCounter(shortStrB);
-
-  // ! need to check char counter key len is same
-  if (Object.keys(charCounterA).length !== Object.keys(charCounterB).length) {
-    return false;
-  }
-
-  // compare count in char counter A and B
-  for (let key in charCounterA) {
-    if (charCounterA[key] !== charCounterB[key]) {
-      return false;
-    }
-  }
-
-  return true;
+  return getSortedStr(shortStringA) === getSortedStr(shortStringB);
 }
+
+// const getCharCounter = str => {
+//   return str.split('').reduce((acc, char) => {
+//     if (acc[char] === undefined) {
+//       acc[char] = 1;
+//     } else {
+//       acc[char] += 1;
+//     }
+
+//     return acc;
+//   }, {});
+// };
+
+// function anagrams(stringA, stringB) {
+//   // * Consider capital letters to be the same as lower case
+//   // change string A, and string B to lower case
+//   // remove space and punctuation
+//   const shortStrA = removeSpaceAndPunctuation(stringA.toLowerCase());
+//   const shortStrB = removeSpaceAndPunctuation(stringB.toLowerCase());
+
+//   // make charCounter A and B
+//   const charCounterA = getCharCounter(shortStrA);
+//   const charCounterB = getCharCounter(shortStrB);
+
+//   // ! need to check char counter key len is same
+//   if (Object.keys(charCounterA).length !== Object.keys(charCounterB).length) {
+//     return false;
+//   }
+
+//   // compare count in char counter A and B
+//   for (let key in charCounterA) {
+//     if (charCounterA[key] !== charCounterB[key]) {
+//       return false;
+//     }
+//   }
+
+//   return true;
+// }
 
 module.exports = anagrams;
