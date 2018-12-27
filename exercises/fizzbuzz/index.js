@@ -12,6 +12,22 @@
 //   4
 //   buzz
 
-function fizzBuzz(n) {}
+function fizzBuzz(n) {
+  // if mod is 0 for 3 5 then fizzbuzz
+  // fi mod is 0 for 3 then fizz
+  // if mod is 0 for 5 then buzz
+
+  for (let i = 1; i <= n; i++) {
+    if (i % 3 === 0 && i % 5 === 0) {
+      console.log('fizzbuzz');
+    } else if (i % 3 === 0) {
+      console.log('fizz');
+    } else if (i % 5 === 0) {
+      console.log('buzz');
+    } else {
+      console.log(i);
+    }
+  }
+}
 
 module.exports = fizzBuzz;
