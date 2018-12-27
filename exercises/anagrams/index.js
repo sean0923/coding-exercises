@@ -12,6 +12,7 @@ const removeSpaceAndPunctuation = str => {
   let outputStr = '';
 
   for (char of str) {
+    // if it is letter lower case should not be equal to upper case
     if (char.toLowerCase() !== char.toUpperCase()) {
       outputStr += char;
     }
