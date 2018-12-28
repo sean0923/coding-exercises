@@ -24,6 +24,58 @@
 
 const Queue = require('./queue');
 
-function weave(sourceOne, sourceTwo) {}
+// isQueEmpty
+// if(queue.peek() === undefined)
+// ture
+
+// false
+const isQueueEmpty = queue => {
+  if (queue.peek() === undefined) return true;
+  return false;
+};
+
+function weave(sourceOne, sourceTwo) {
+  // start with empty thridQueue
+  // const thirdQueue = new Queue()
+  // emptyNum = 0
+
+  // sourceOneEmpty = false
+  // sourceTwoEmpty = false
+
+  // while true ( if source one and two is empty then break)
+  // if (queue1 empty then )
+  // sourceOneEmpty = true
+  // else
+  // put value to que1
+
+  // if que 2 empty then
+  // que 2 empty true
+  const thirdQueue = new Queue();
+
+  let isOneEmpty = false;
+  let isTwoEmpty = false;
+
+  while (true) {
+    if (isOneEmpty && isTwoEmpty) break;
+
+    if (!isOneEmpty) {
+      if (isQueueEmpty(sourceOne)) {
+        isOneEmpty = true;
+      } else {
+        thirdQueue.add(sourceOne.remove());
+      }
+    }
+
+    if (!isTwoEmpty) {
+      if (isQueueEmpty(sourceTwo)) {
+        isTwoEmpty = true;
+      } else {
+        thirdQueue.add(sourceTwo.remove());
+      }
+    }
+  }
+
+  return thirdQueue;
+}
 
 module.exports = weave;
