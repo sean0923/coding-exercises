@@ -15,6 +15,100 @@
 //     [11, 16, 15, 6],
 //     [10,  9,  8, 7]]
 
-function matrix(n) {}
+// reachToLimit
+// right col > maxCol
+// down row > maxRow
+// left col < 0
+// up row < 0
+
+const occupied = (row, col, nestedArr) => {
+  return nestedArr[row][col] ? true : false;
+};
+
+const reachToLimit = (row, col, maxRow, maxCol) => {
+  if (row < 0) return true;
+  if (row >= maxRow) return true;
+  if (col < 0) return true;
+  if (col >= maxCol) return true;
+
+  return false;
+};
+
+const getNextRowCol = (direction, [row, col]) => {
+  if (direction === 'R') return [row, col + 1];
+  if (direction === 'D') return [row + 1, col];
+  if (direction === 'L') return [row, col - 1];
+  if (direction === 'U') return [row - 1, col];
+};
+
+const changeDirection = direction => {
+  if (direction === 'R') return 'D';
+  if (direction === 'D') return 'L';
+  if (direction === 'L') return 'U';
+  if (direction === 'U') return 'R';
+};
+
+const getNestedArr = n => {
+  let outputNestedArr = [];
+  for (let i = 0; i < n; i++) {
+    let subArr = [];
+    for (let j = 0; j < n; j++) {
+      subArr[j] = '';
+    }
+
+    outputNestedArr.push(subArr);
+  }
+
+  return outputNestedArr;
+};
+
+function matrix(n) {
+  // num start from 1
+  // row start 0
+  // col start 0
+  // direction = right;
+
+  // while num is not n * n
+  // get next row col
+  // if next row col reach to limit or occupied then
+  // change direction
+  // else
+  // put num inside to nested Arr => nestedArr[row][col] = num;
+  // num++;
+  // row = nextRow, col = nextCol
+  const outputNestedArr = getNestedArr(n);
+
+  let row = 0;
+  let col = 0;
+  let num = 1;
+  outputNestedArr[row][col] = num;
+
+  num++;
+
+  let maxRow = n;
+  let maxCol = n;
+
+  let direction = 'R';
+
+  while (true) {
+    const [nextRow, nextCol] = getNextRowCol(direction, [row, col]);
+
+    const hasReachLimit = reachToLimit(nextRow, nextCol, maxRow, maxCol);
+
+    if (hasReachLimit) {
+      direction = changeDirection(direction);
+    } else if (occupied(nextRow, nextCol, outputNestedArr)) {
+      direction = changeDirection(direction);
+    } else {
+      outputNestedArr[nextRow][nextCol] = num;
+      if (num === n * n) break;
+      num++;
+      row = nextRow;
+      col = nextCol;
+    }
+  }
+
+  return outputNestedArr;
+}
 
 module.exports = matrix;

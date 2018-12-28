@@ -1,50 +1,118 @@
 // --- Directions
-// Write a function that accepts a positive number N.
-// The function should console log a pyramid shape
-// with N levels using the # character.  Make sure the
-// pyramid has spaces on both the left *and* right hand sides
+// Write a function that accepts an integer N
+// and returns a NxN spiral matrix.
 // --- Examples
-//   pyramid(1)
-//       '#'
-//   pyramid(2)
-//       ' # '
-//       '###'
-//   pyramid(3)
-//       '  #  '
-//       ' ### '
-//       '#####'
+//   matrix(2)
+//     [[1, 2],
+//     [4, 3]]
+//   matrix(3)
+//     [[1, 2, 3],
+//     [8, 9, 4],
+//     [7, 6, 5]]
+//  matrix(4)
+//     [[1,   2,  3, 4],
+//     [12, 13, 14, 5],
+//     [11, 16, 15, 6],
+//     [10,  9,  8, 7]]
 
-const getStrWithChar = (char, count) => {
-  let outputStr = '';
+// reachToLimit
+// right col > maxCol
+// down row > maxRow
+// left col < 0
+// up row < 0
 
-  for (let i = 0; i < count; i++) {
-    outputStr += char;
-  }
-
-  return outputStr;
+const occupied = (row, col, nestedArr) => {
+  return nestedArr[row][col] ? true : false;
 };
 
-function pyramid(n) {
-  // just observing
-  // 2 1 2
-  // 1 3 1
-  // 0 5 0
+const reachToLimit = (direction, row, col, maxRow, maxCol) => {
+  if (direction === 'R' && col >= maxCol) return true;
+  if (direction === 'D' && row >= maxRow) return true;
+  if (direction === 'L' && col < 0) return true;
+  if (direction === 'U' && row < 0) return true;
 
-  // 3 1 3 | 1 | n - f, just 1 odd num, n - 1
-  // 2 3 2 | 2 | n - f, just 2 odd num, n - 2
-  // 1 5 1 | 3 | n - f, just 3 odd num, n - 3
-  // 0 7 0 | 4 | n - f, just 4 odd num, n - 4
+  return false;
+};
 
-  // nOddNum
-  // n * 2 - 1
-  // 1 -> 1
-  // 2 -> 3
-  // 3 -> 5
-  for (let i = 1; i <= n; i++) {
-    const emptySpaces = getStrWithChar(' ', n - i);
-    const steps = getStrWithChar(' ', i * 2 - 1);
-    console.log(emptySpaces + steps + emptySpaces);
+const getNextRowCol = (direction, [row, col]) => {
+  if (direction === 'R') return [row, col + 1];
+  if (direction === 'D') return [row + 1, col];
+  if (direction === 'L') return [row, col - 1];
+  if (direction === 'U') return [row - 1, col];
+};
+
+const changeDirection = direction => {
+  if (direction === 'R') return 'D';
+  if (direction === 'D') return 'L';
+  if (direction === 'L') return 'U';
+  if (direction === 'U') return 'R';
+};
+
+const getNestedArr = n => {
+  let outputNestedArr = [];
+  for (let i = 0; i < n; i++) {
+    let subArr = [];
+    for (let j = 0; j < n; j++) {
+      subArr[j] = '';
+    }
+
+    outputNestedArr.push(subArr);
   }
+
+  return outputNestedArr;
+};
+
+function matrix(n) {
+  // num start from 1
+  // row start 0
+  // col start 0
+  // direction = right;
+
+  // while num is not n * n
+  // get next row col
+  // if next row col reach to limit or occupied then
+  // change direction
+  // else
+  // put num inside to nested Arr => nestedArr[row][col] = num;
+  // num++;
+  // row = nextRow, col = nextCol
+  const outputNestedArr = getNestedArr(n);
+  console.log('outputNestedArr: ', outputNestedArr);
+
+  let row = 0;
+  let col = 0;
+  let num = 1;
+  outputNestedArr[row][col] = num;
+
+  num++;
+
+  let maxRow = n;
+  let maxCol = n;
+
+  let direction = 'R';
+
+  while (true) {
+    const [nextRow, nextCol] = getNextRowCol(direction, [row, col]);
+
+    const hasReachLimit = reachToLimit(direction, nextRow, nextCol, maxRow, maxCol);
+
+    if (hasReachLimit) {
+      direction = changeDirection(direction);
+    } else if (occupied(nextRow, nextCol, outputNestedArr)) {
+      direction = changeDirection(direction);
+    } else {
+      outputNestedArr[nextRow][nextCol] = num;
+      console.log('outputNestedArr: ', outputNestedArr);
+      if (num === n * n) break;
+      num++;
+      row = nextRow;
+      col = nextCol;
+    }
+  }
+
+  return outputNestedArr;
 }
 
-module.exports = pyramid;
+console.log(matrix(2));
+
+module.exports = matrix;
