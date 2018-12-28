@@ -7,6 +7,26 @@
 //   vowels('Why do you ask?') --> 4
 //   vowels('Why?') --> 0
 
-function vowels(str) {}
+// isVoel func
+// return true if a e i o u
+// else return false
+
+const isVowel = char => {
+  return 'aeiou'.includes(char);
+};
+
+function vowels(str) {
+  // count start with 0
+  // for each char in str
+  // if is vowel then count + 1
+
+  // return vowelCount
+  let vowelCount = 0;
+  str.split('').forEach(char => {
+    if (isVowel(char.toLowerCase())) vowelCount++;
+  });
+
+  return vowelCount;
+}
 
 module.exports = vowels;
