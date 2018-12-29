@@ -18,24 +18,46 @@
 // 2 -> 3
 // 3 -> 5
 
-// * iterative
-function pyramid(n) {
+// * recursive
+function pyramid(n, row = 0, str = '') {
   const maxCol = n * 2 - 1;
 
-  const colMidPoint = Math.floor(maxCol / 2);
+  if (row === n) return;
 
-  for (let row = 0; row < n; row++) {
-    let str = '';
-    for (let col = 0; col < maxCol; col++) {
-      if (col >= colMidPoint - row && col <= colMidPoint + row) {
-        str += '#';
-      } else {
-        str += ' ';
-      }
-    }
+  if (str.length === maxCol) {
     console.log(str);
+    pyramid(n, row + 1);
+    return;
   }
+
+  const colMidPoint = Math.floor(maxCol / 2);
+  if (str.length >= colMidPoint - row && str.length <= colMidPoint + row) {
+    str += '#';
+  } else {
+    str += ' ';
+  }
+
+  pyramid(n, row, str);
 }
+
+// * iterative
+// function pyramid(n) {
+//   const maxCol = n * 2 - 1;
+
+//   const colMidPoint = Math.floor(maxCol / 2);
+
+//   for (let row = 0; row < n; row++) {
+//     let str = '';
+//     for (let col = 0; col < maxCol; col++) {
+//       if (col >= colMidPoint - row && col <= colMidPoint + row) {
+//         str += '#';
+//       } else {
+//         str += ' ';
+//       }
+//     }
+//     console.log(str);
+//   }
+// }
 
 // * my solution
 // const getStrWithChar = (char, count) => {
