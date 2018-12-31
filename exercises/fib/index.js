@@ -8,7 +8,8 @@
 // Example:
 //   fib(4) === 3
 
-// * recursive
+// * recursive with memoize
+let storage = [0, 1];
 function fib(n) {
   // base
   // n = 0 -> 0
@@ -16,10 +17,28 @@ function fib(n) {
 
   // return fib(n - 1) + fib(n - 2)
 
-  if (n === 0) return 0;
-  if (n === 1) return 1;
-  return fib(n - 1) + fib(n - 2);
+  if (storage.length > n) {
+    return storage[n];
+  }
+
+  const res = fib(n - 1) + fib(n - 2);
+  storage.push(res);
+
+  return res;
 }
+
+// * recursive
+// function fib(n) {
+//   // base
+//   // n = 0 -> 0
+//   // n = 1 -> 1
+
+//   // return fib(n - 1) + fib(n - 2)
+
+//   if (n === 0) return 0;
+//   if (n === 1) return 1;
+//   return fib(n - 1) + fib(n - 2);
+// }
 
 // * iterative
 // function fib(n) {
