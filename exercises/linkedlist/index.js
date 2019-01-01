@@ -86,7 +86,7 @@ class LinkedList {
     // tempNode = tempNode.next
 
     // tempNode.next = null
-    const size = this.size(this);
+    const size = this.size();
 
     if (size === 0) return;
     if (size === 1) {
@@ -103,6 +103,57 @@ class LinkedList {
     }
 
     tempNode.next = null;
+  }
+
+  insertLast(item) {
+    const size = this.size();
+    const newNode = new Node(item);
+
+    if (size === 0) return (this.head = newNode);
+    if (size === 1) return (this.head.next = newNode);
+    // when count = size
+    // break;
+
+    // then tempNode.next add new node
+    let count = 1;
+    let tempNode = this.head;
+
+    while (true) {
+      count++;
+      tempNode = tempNode.next;
+      if (count === size) break;
+    }
+    tempNode.next = newNode;
+  }
+
+  getAt(targetIdx) {
+    // if targetIdx > size - 1
+    // return null;
+
+    // idx 0
+    // tempNode = this.head
+
+    // while true
+    // idx++;
+    // tempNode = tempNode.next
+    // if idx = targetIdx
+    // break;
+
+    // return tempNode
+    const size = this.size();
+    if (targetIdx > size - 1) {
+      return null;
+    }
+
+    let idx = 0;
+    let tempNode = this.head;
+
+    while (idx < targetIdx) {
+      idx++;
+      tempNode = tempNode.next;
+    }
+
+    return tempNode;
   }
 }
 
