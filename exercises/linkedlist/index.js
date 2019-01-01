@@ -30,8 +30,9 @@ class LinkedList {
   }
 
   size() {
-    // count = 0;
-    // tempNode
+    // count = 0
+
+    // oneBeforeTargetNode
     // start with this.head
     // while tempNode is not null
     // tempNode = tempNode.next
@@ -154,6 +155,62 @@ class LinkedList {
     }
 
     return tempNode;
+  }
+
+  removeAt(targetIdx) {
+    // if targetIdx > size - 1
+    // return;
+
+    const size = this.size();
+
+    if (targetIdx > size - 1) return;
+
+    let prevIdx = targetIdx - 1;
+
+    if (prevIdx < 0) {
+      this.head = this.head.next;
+      return;
+    }
+
+    let idx = 0;
+    let prevNode = this.head;
+
+    if (idx === prevIdx) {
+      prevNode.next = prevNode.next.next;
+      return;
+    }
+
+    while (true) {
+      idx++;
+      prevNode = prevNode.next;
+      if (idx === prevIdx) {
+        prevNode.next = prevNode.next.next;
+        return;
+      }
+    }
+
+    // if targetIdx === 0
+    // head = null
+
+    // if targetIdx === 1
+    // head.next = null
+
+    // a -> b -> c
+    // 1
+    // b.next = null
+    // a -> c
+
+    // last ?
+    // if targetIdx === size - 1
+    // is last
+
+    // if is last
+    // get to one before last
+    // one before last .next = null
+
+    // not last
+    // get one before targetIdx
+    // one before last .next = one before last.next.next;
   }
 }
 
