@@ -212,6 +212,58 @@ class LinkedList {
     // get one before targetIdx
     // one before last .next = one before last.next.next;
   }
+
+  insertAt(item, idx) {
+    // a -> b -> c
+    // x -> a -> ...
+
+    // a -> x -> b -> c ->
+    // grab one before n one after
+
+    // newNode
+    const newNode = new Node(item);
+
+    // this.head = null
+    // this.head = newNode
+    if (this.head === null) {
+      this.head = newNode;
+      return;
+    }
+
+    // idx < 1
+    // newNode.next = this.head
+    // this.head = newNode
+    // return;
+    if (idx < 1) {
+      newNode.next = this.head;
+      this.head = newNode;
+    }
+
+    // 1 <= idx < size - 1
+    // means one before
+    // one after
+    if (idx >= 1 && idx < this.size() - 1) {
+      let count = 1;
+      let nodeOneBefore = this.head;
+      let nodeOneAfter = this.head.next;
+
+      while (true) {
+        if (count >= idx) {
+          nodeOneBefore.next = newNode;
+          newNode.next = nodeOneAfter;
+          break;
+        }
+
+        nodeOneBefore = nodeOneBefore.next;
+        nodeOneAfter = nodeOneAfter.next;
+        count++;
+      }
+      return;
+    }
+
+    // idx <= size - 1
+    this.insertLast(item);
+  }
 }
 
 module.exports = { Node, LinkedList };
