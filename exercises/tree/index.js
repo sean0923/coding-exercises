@@ -10,8 +10,52 @@
 // on the tree class.  Each method should accept a
 // function that gets called with each element in the tree
 
-class Node {}
+class Node {
+  constructor(data, children = []) {
+    this.data = data;
+    this.children = children;
+  }
 
-class Tree {}
+  add(data) {
+    const newNode = new Node(data);
+    this.children.push(newNode);
+  }
+
+  remove(data) {
+    this.children = this.children.filter(item => {
+      return item.data !== data;
+    });
+  }
+}
+
+class Tree {
+  constructor(root = null) {
+    this.root = root;
+  }
+
+  traverseBF(cb) {
+    if (!this.root) return null;
+    if (this.root && !this.root.data) return null;
+
+    const recurFunc = (currQueue = [this.root]) => {
+      let nextQueue = [];
+      // console.log('currQueue: ', currQueue);
+
+      while (currQueue.length > 0) {
+        const firstItem = currQueue.shift();
+        cb(firstItem);
+        if (firstItem.children) {
+          nextQueue = nextQueue.concat(firstItem.children);
+        }
+      }
+
+      if (nextQueue.length > 0) {
+        recurFunc(nextQueue);
+      }
+    };
+
+    recurFunc();
+  }
+}
 
 module.exports = { Tree, Node };

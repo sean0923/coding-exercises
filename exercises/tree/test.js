@@ -29,13 +29,13 @@ describe('Node', () => {
   });
 });
 
-describe.skip('Tree', () => {
+describe('Tree', () => {
   test('starts empty', () => {
     const t = new Tree();
     expect(t.root).toEqual(null);
   });
 
-  test('Can traverse bf', () => {
+  test.only('Can traverse bf', () => {
     const letters = [];
     const t = new Tree();
     t.root = new Node('a');
