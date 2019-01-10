@@ -4,7 +4,7 @@ test('Node is a constructor', () => {
   expect(typeof Node.prototype.constructor).toEqual('function');
 });
 
-test.only('Node can insert correctly', () => {
+test('Node can insert correctly', () => {
   const node = new Node(10);
   node.insert(5);
   node.insert(15);

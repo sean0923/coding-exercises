@@ -40,6 +40,19 @@ class Node {
       }
     }
   }
+
+  contains(data, node = this) {
+    if (!node) return null;
+
+    if (node.data === data) return node;
+
+    // if data < node.data
+    if (data < node.data) {
+      return this.contains(data, node.left);
+    } else {
+      return this.contains(data, node.right);
+    }
+  }
 }
 
 module.exports = Node;
