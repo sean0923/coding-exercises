@@ -18,40 +18,30 @@ class Node {
     this.right = right;
   }
 
-  insert(data, node = this) {
-    // if(data <= this.data)
-    if (data <= node.data) {
-      // if(nothing on left)
-      if (!node.left) {
-        // this.left = data
-        node.left = new Node(data);
-      } else {
-        // this.insert(data, this.left)
-        this.insert(data, node.left);
-      }
-    } else {
-      // if nothing on right
-      if (!node.right) {
-        // node.right = data
-        node.right = new Node(data);
-      } else {
-        // this.insert(data, this.right)
-        this.insert(data, node.right);
-      }
+  insert(data) {
+    if (data < this.data && this.left) {
+      this.left.insert(data);
+    } else if (data < this.data) {
+      this.left = new Node(data);
+    } else if (this.data <= data && this.right) {
+      this.right.insert(data);
+    } else if (this.data <= data) {
+      this.right = new Node(data);
     }
   }
 
-  contains(data, node = this) {
-    if (!node) return null;
-
-    if (node.data === data) return node;
-
-    // if data < node.data
-    if (data < node.data) {
-      return this.contains(data, node.left);
-    } else {
-      return this.contains(data, node.right);
+  contains(data) {
+    if (this.data === data) {
+      return this;
     }
+
+    if (data < this.data && this.left) {
+      return this.left.contains(data);
+    } else if (this.data <= data && this.right) {
+      return this.right.contains(data);
+    }
+
+    return null;
   }
 }
 
