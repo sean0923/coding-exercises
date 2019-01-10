@@ -35,7 +35,7 @@ describe('Tree', () => {
     expect(t.root).toEqual(null);
   });
 
-  test.only('Can traverse bf', () => {
+  test('Can traverse bf', () => {
     const letters = [];
     const t = new Tree();
     t.root = new Node('a');

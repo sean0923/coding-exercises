@@ -34,27 +34,18 @@ class Tree {
   }
 
   traverseBF(cb) {
-    if (!this.root) return null;
-    if (this.root && !this.root.data) return null;
+    const queue = [this.root];
 
-    const recurFunc = (currQueue = [this.root]) => {
-      let nextQueue = [];
-      // console.log('currQueue: ', currQueue);
+    while (queue.length) {
+      const node = queue.shift();
+      queue.push(...node.children);
+      cb(node);
+    }
+  }
 
-      while (currQueue.length > 0) {
-        const firstItem = currQueue.shift();
-        cb(firstItem);
-        if (firstItem.children) {
-          nextQueue = nextQueue.concat(firstItem.children);
-        }
-      }
-
-      if (nextQueue.length > 0) {
-        recurFunc(nextQueue);
-      }
-    };
-
-    recurFunc();
+  traverseDF(cb, node = this.root) {
+    cb(node);
+    node.children.forEach(child => this.traverseDF(cb, child));
   }
 }
 
