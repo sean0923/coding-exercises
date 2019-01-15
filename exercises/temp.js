@@ -1,3 +1,5 @@
-const arr = [1,2,3];
-arr.shift()
-console.log('arr: ', arr);
+const func = (a, b) => {
+  console.log(a, b);
+};
+
+func(null || 10, null || 'eueu');
