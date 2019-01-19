@@ -21,3 +21,9 @@ test('[1, 2, 3, 4, 5, null] -> [5, 4, 3, 2, 1, null]', () => {
   expect(reversedNode.next.next.next.next.data).toEqual(1);
   expect(reversedNode.next.next.next.next.next).toEqual(null);
 });
+
+test('[] -> []', () => {
+  const node = null;
+
+  expect(reverseLinkedList(node)).toEqual(null);
+});
