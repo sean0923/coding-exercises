@@ -1,3 +1,5 @@
-# AlgoCasts
+# Coding Exercies
 
-Companion repo to a course on Udemy.com
+Originally cloned from Stephen Grider Udemy course.
+Then expand it to have more coding Exercies.
+
